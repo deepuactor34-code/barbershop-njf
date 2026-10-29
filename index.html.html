@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NJF Barber Shop · Luxury Grooming</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+  :root {
+    --bg-dark: #05070a;
+    --bg-card: #0d131f;
+    --primary-gold: #d4af37;
+    --primary-gold-light: #f4d03f;
+    --primary-blue: #0a4d68;
+    --primary-blue-light: #088395;
+    --text-light: #f0f4f8;
+    --text-muted: #8ba3b8;
+    --gradient-gold: linear-gradient(135deg, #f4d03f 0%, #d4af37 50%, #b8860b 100%);
+    --gradient-blue: linear-gradient(135deg, #088395 0%, #0a4d68 100%);
+    --gradient-dark: linear-gradient(145deg, #0d131f, #05070a);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Poppins', sans-serif;background:var(--bg-dark);color:var(--text-light);overflow-x:hidden}
+
+  h1, h2, h3, .brand-font { font-family: 'Playfair Display', serif; }
+
+  /* ---------- PAGE SYSTEM ---------- */
+  .page{display:none;animation:fadeIn .5s ease}
+  .page.active{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+  /* ---------- NAVBAR ---------- */
+  .navbar{position:sticky;top:0;z-index:100;background:rgba(5,7,10,.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(212,175,55,.2);box-shadow:0 4px 30px rgba(0,0,0,.8);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+  .nav-brand{display:flex;align-items:center;gap:12px;font-size:1.6rem;font-weight:800;letter-spacing:5px;text-transform:uppercase;cursor:pointer;color:#fff}
+  .nav-brand i{color:var(--primary-gold);font-size:1.8rem;filter:drop-shadow(0 0 10px rgba(212,175,55,.5))}
+  .nav-brand span{background:var(--gradient-gold);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .nav-links{display:flex;gap:1.5rem;flex-wrap:wrap}
+  .nav-links a{color:var(--text-muted);text-decoration:none;font-size:.85rem;letter-spacing:2px;text-transform:uppercase;font-weight:600;padding:.5rem .8rem;transition:all .3s;cursor:pointer;position:relative}
+  .nav-links a::after{content:'';position:absolute;bottom:0;left:50%;width:0;height:2px;background:var(--gradient-gold);transition:all .3s;transform:translateX(-50%)}
+  .nav-links a:hover{color:var(--primary-gold)}
+  .nav-links a:hover::after{width:100%}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;min-height:95vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:3rem 1.5rem;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;z-index:0;background:var(--bg-dark)}
+  .hero-bg::before{content:'';position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=1600&q=80');background-size:cover;background-position:center;opacity:.25;filter:grayscale(50%) blur(2px)}
+  .hero-bg::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at center, transparent 0%, #05070a 90%)}
+  
+  .hero-content{position:relative;z-index:2;max-width:1000px}
+  .hero-icon{font-size:3.5rem;color:var(--primary-gold);margin-bottom:1.5rem;animation:float 4s ease-in-out infinite;text-shadow:0 0 20px rgba(212,175,55,.4)}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+  .hero h1{font-size:clamp(3rem,8vw,5.5rem);letter-spacing:12px;font-weight:800;text-transform:uppercase;color:#fff;margin-bottom:.5rem;line-height:1.1;text-shadow:0 10px 30px rgba(0,0,0,.8)}
+  .hero h1 span{background:var(--gradient-gold);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero-tag{font-size:clamp(.9rem,2vw,1.1rem);letter-spacing:8px;color:var(--text-muted);text-transform:uppercase;font-weight:400;margin-bottom:3rem;display:flex;align-items:center;justify-content:center;gap:15px}
+  .hero-tag::before,.hero-tag::after{content:'';height:1px;width:50px;background:linear-gradient(90deg, transparent, var(--primary-gold), transparent)}
+
+  .hero-buttons{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap}
+
+  /* ---------- BUTTONS ---------- */
+  .btn{position:relative;padding:1.1rem 2.5rem;font-size:1rem;font-weight:600;text-transform:uppercase;letter-spacing:2px;border:none;border-radius:4px;cursor:pointer;background:transparent;color:var(--primary-gold);border:1px solid var(--primary-gold);transition:all .4s;display:inline-flex;align-items:center;justify-content:center;gap:12px;text-decoration:none;font-family:'Poppins',sans-serif;overflow:hidden;z-index:1}
+  .btn::before{content:'';position:absolute;top:0;left:0;width:0;height:100%;background:var(--gradient-gold);transition:all .4s;z-index:-1}
+  .btn:hover::before{width:100%}
+  .btn:hover{color:var(--bg-dark);box-shadow:0 0 20px rgba(212,175,55,.4)}
+  .btn i{font-size:1.1rem}
+  
+  .btn-solid{background:var(--gradient-gold);color:var(--bg-dark);border:none}
+  .btn-solid::before{background:#fff;opacity:.2}
+  .btn-solid:hover{color:var(--bg-dark);box-shadow:0 0 30px rgba(212,175,55,.6)}
+  
+  .btn-wa{border-color:#25D366;color:#25D366}
+  .btn-wa::before{background:#25D366}
+  .btn-wa:hover{color:#fff;box-shadow:0 0 20px rgba(37,211,102,.4)}
+
+  /* ---------- SECTION LAYOUT ---------- */
+  .section{max-width:1250px;margin:0 auto;padding:6rem 1.5rem}
+  .section-head{text-align:center;margin-bottom:4rem}
+  .section-sub{color:var(--primary-gold);font-size:.85rem;letter-spacing:4px;text-transform:uppercase;font-weight:600;margin-bottom:.5rem;display:block}
+  .section-title{font-size:clamp(2rem,5vw,3rem);letter-spacing:4px;text-transform:uppercase;font-weight:800;color:#fff;margin-bottom:1rem}
+  .title-divider{width:80px;height:2px;background:var(--gradient-gold);margin:0 auto}
+
+  /* ---------- STATS BAR ---------- */
+  .stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:2rem;max-width:1100px;margin:0 auto;padding:3rem 1.5rem;background:var(--gradient-dark);border-top:1px solid rgba(212,175,55,.1);border-bottom:1px solid rgba(212,175,55,.1)}
+  .stat-item{text-align:center}
+  .stat-num{font-size:3rem;font-weight:800;font-family:'Playfair Display',serif;background:var(--gradient-gold);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1;margin-bottom:.5rem}
+  .stat-label{font-size:.8rem;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);font-weight:600}
+
+  /* ---------- FEATURE CARDS ---------- */
+  .feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem}
+  .feature-card{background:var(--bg-card);border:1px solid rgba(212,175,55,.1);padding:3rem 2rem;text-align:center;transition:all .4s;position:relative;overflow:hidden}
+  .feature-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--gradient-gold);transform:scaleX(0);transition:transform .4s;transform-origin:left}
+  .feature-card:hover::before{transform:scaleX(1)}
+  .feature-card:hover{transform:translateY(-10px);box-shadow:0 20px 40px rgba(0,0,0,.5);border-color:rgba(212,175,55,.3)}
+  .feature-icon{font-size:2.5rem;color:var(--primary-gold);margin-bottom:1.5rem;transition:transform .4s}
+  .feature-card:hover .feature-icon{transform:scale(1.1)}
+  .feature-card h3{font-size:1.3rem;letter-spacing:2px;color:#fff;margin-bottom:1rem}
+  .feature-card p{color:var(--text-muted);font-size:.9rem;line-height:1.8}
+
+  /* ---------- GALLERY ---------- */
+  .photo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+  .photo-item{position:relative;overflow:hidden;border:1px solid rgba(212,175,55,.2);background:var(--bg-card);aspect-ratio:1/1;cursor:pointer}
+  .photo-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+  .photo-item:hover img{transform:scale(1.1)}
+  .photo-overlay{position:absolute;inset:0;background:linear-gradient(to top, rgba(5,7,10,.9) 0%, transparent 100%);opacity:0;transition:opacity .4s;display:flex;align-items:flex-end;padding:2rem}
+  .photo-item:hover .photo-overlay{opacity:1}
+  .photo-caption{color:var(--primary-gold);font-size:1rem;letter-spacing:3px;text-transform:uppercase;font-weight:600;transform:translateY(20px);transition:transform .4s}
+  .photo-item:hover .photo-caption{transform:translateY(0)}
+
+  /* ---------- TESTIMONIALS ---------- */
+  .testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem}
+  .testi-card{background:var(--bg-card);border:1px solid rgba(212,175,55,.1);padding:2.5rem;position:relative}
+  .testi-card::after{content:'”';position:absolute;top:10px;right:20px;font-size:6rem;font-family:'Playfair Display',serif;color:rgba(212,175,55,.1);line-height:1}
+  .testi-stars{color:var(--primary-gold);font-size:.9rem;letter-spacing:4px;margin-bottom:1.5rem}
+  .testi-text{color:var(--text-muted);font-size:.95rem;line-height:1.8;margin-bottom:2rem;font-style:italic}
+  .testi-author{display:flex;align-items:center;gap:1rem}
+  .testi-avatar{width:50px;height:50px;background:var(--gradient-blue);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;border:2px solid var(--primary-gold)}
+  .testi-name{color:#fff;font-size:1rem;font-weight:600;letter-spacing:1px}
+  .testi-role{color:var(--primary-gold);font-size:.75rem;letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+
+  /* ---------- CTA STRIP ---------- */
+  .cta-strip{max-width:1150px;margin:0 auto;padding:5rem 2rem;text-align:center;background:var(--bg-card);border:1px solid rgba(212,175,55,.2);margin-top:2rem;margin-bottom:4rem;position:relative;overflow:hidden}
+  .cta-strip::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:url('https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=1000&q=80') center/cover;opacity:.1;z-index:0}
+  .cta-strip h2{font-size:clamp(2rem,5vw,3rem);letter-spacing:4px;text-transform:uppercase;color:#fff;margin-bottom:1rem;position:relative;z-index:1}
+  .cta-strip p{color:var(--text-muted);letter-spacing:2px;margin-bottom:2.5rem;font-size:1rem;position:relative;z-index:1}
+  .cta-buttons{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:#030508;border-top:1px solid rgba(212,175,55,.1);padding:4rem 1.5rem 2rem;text-align:center}
+  .footer-brand{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:800;letter-spacing:8px;text-transform:uppercase;color:#fff;margin-bottom:.5rem}
+  .footer-brand span{color:var(--primary-gold)}
+  .footer-tag{color:var(--text-muted);font-size:.85rem;letter-spacing:4px;text-transform:uppercase;margin-bottom:3rem}
+  .footer-social{display:flex;justify-content:center;gap:1.5rem;margin-bottom:3rem}
+  .footer-social a{width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--bg-card);border:1px solid rgba(212,175,55,.2);color:var(--primary-gold);font-size:1.1rem;text-decoration:none;transition:all .3s}
+  .footer-social a:hover{background:var(--gradient-gold);color:var(--bg-dark);transform:translateY(-5px);border-color:transparent}
+  .footer-info{color:var(--text-muted);font-size:.9rem;line-height:2;display:flex;flex-direction:column;gap:.5rem;align-items:center}
+  .footer-info i{color:var(--primary-gold);margin-right:10px}
+  .footer-copy{margin-top:3rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,.05);color:#4a5a6a;font-size:.8rem;letter-spacing:2px}
+
+  /* ---------- INNER PAGES ---------- */
+  .page-inner{max-width:1000px;margin:4rem auto;padding:0 1.5rem}
+  .barber-card{background:var(--bg-card);border:1px solid rgba(212,175,55,.2);padding:4rem 3rem;box-shadow:0 20px 50px rgba(0,0,0,.7);position:relative}
+  .barber-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:4px;background:var(--gradient-gold)}
+  .section-title-inner{font-size:2.2rem;letter-spacing:4px;text-transform:uppercase;color:#fff;margin-bottom:3rem;text-align:center}
+  .section-title-inner span{color:var(--primary-gold)}
+
+  .back-btn{display:inline-flex;align-items:center;gap:10px;margin-bottom:2rem;padding:.6rem 1.5rem;background:transparent;color:var(--primary-gold);border:1px solid var(--primary-gold);text-decoration:none;font-weight:600;letter-spacing:2px;font-size:.85rem;transition:all .3s;cursor:pointer;text-transform:uppercase}
+  .back-btn:hover{background:var(--primary-gold);color:var(--bg-dark)}
+
+  /* ---------- SERVICES (Colorful & Animated) ---------- */
+  .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem}
+  .service-item{
+    background:rgba(255,255,255,.02);
+    border:1px solid rgba(212,175,55,.2);
+    padding:2rem 1.5rem;
+    text-align:center;
+    transition:all .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor:pointer;
+    position:relative;
+    overflow:hidden;
+    border-radius:8px;
+  }
+  .service-item::before {
+    content:''; position:absolute; inset:0; 
+    background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(10,77,104,0.3));
+    opacity:0; transition:opacity .4s; z-index:0;
+  }
+  .service-item:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: var(--primary-gold);
+    box-shadow: 0 10px 30px rgba(212,175,55,0.2);
+  }
+  .service-item:hover::before { opacity:1; }
+  .service-item i {
+    font-size:2rem; color:var(--primary-gold); margin-bottom:1rem; display:block;
+    transition:all .4s; position:relative; z-index:1;
+  }
+  .service-item:hover i {
+    transform: scale(1.2) rotate(10deg); color:var(--primary-gold-light);
+    text-shadow: 0 0 15px rgba(212,175,55,0.6);
+  }
+  .service-item span {
+    color:#fff; font-weight:600; letter-spacing:1px; font-size:.95rem;
+    position:relative; z-index:1; display:block;
+  }
+  .service-item .tap-hint {
+    font-size:0.7rem; color:var(--primary-gold); opacity:0; transform:translateY(10px);
+    transition:all .4s; position:relative; z-index:1; margin-top:5px;
+  }
+  .service-item:hover .tap-hint { opacity:1; transform:translateY(0); }
+
+  .gallery-grid-full{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem}
+  .gallery-item-full{overflow:hidden;border:1px solid rgba(212,175,55,.2);aspect-ratio:1/1}
+  .gallery-item-full img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+  .gallery-item-full:hover img{transform:scale(1.1)}
+
+  /* ---------- APPOINTMENT FORM (Colorful & Animated) ---------- */
+  .appointment-form{display:flex;flex-direction:column;gap:1.5rem;max-width:700px;margin:0 auto;text-align:left}
+  .form-row{display:flex;flex-wrap:wrap;gap:1.5rem}
+  .form-group{flex:1 1 250px;display:flex;flex-direction:column;gap:8px;position:relative}
+  .form-group label{color:var(--primary-gold);font-size:.8rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;transition:all .3s}
+  
+  .form-group input,.form-group select,.form-group textarea{
+    padding:1.1rem 1.2rem;
+    background:rgba(0,0,0,.4);
+    border:2px solid rgba(212,175,55,.2);
+    color:#fff;
+    font-size:1rem;
+    font-family:'Poppins',sans-serif;
+    outline:none;
+    transition:all .4s;
+    border-radius:8px;
+  }
+  .form-group input:focus,.form-group select:focus,.form-group textarea:focus{
+    border-color:var(--primary-gold);
+    background:rgba(212,175,55,.05);
+    box-shadow:0 0 20px rgba(212,175,55,.2);
+    transform:translateY(-2px);
+  }
+  .form-group input::placeholder{color:#4a5a6a}
+  .form-group select option{background:var(--bg-card);color:#fff}
+  
+  .btn-appointment{
+    width:100%;
+    padding:1.3rem;
+    font-size:1.1rem;
+    font-weight:800;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    border:none;
+    background:linear-gradient(45deg, #f4d03f, #d4af37, #b8860b, #f4d03f);
+    background-size:300% 300%;
+    color:var(--bg-dark);
+    cursor:pointer;
+    transition:all .3s;
+    margin-top:1rem;
+    font-family:'Poppins',sans-serif;
+    border-radius:8px;
+    animation: gradientShift 3s ease infinite;
+    box-shadow:0 0 20px rgba(212,175,55,.4);
+  }
+  @keyframes gradientShift {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+  }
+  .btn-appointment:hover{
+    transform:translateY(-3px) scale(1.02);
+    box-shadow:0 10px 30px rgba(212,175,55,.6);
+    letter-spacing:4px;
+  }
+  .btn-appointment:active{transform:translateY(0) scale(1)}
+  
+  .appointment-success{margin-top:2rem;padding:2rem;border:2px solid #25D366;background:rgba(37,211,102,.1);text-align:center;display:none;border-radius:8px;animation: fadeIn .5s ease}
+  .appointment-success h4{color:#25D366;font-size:1.2rem;margin-bottom:.5rem;letter-spacing:1px}
+  .appointment-success p{color:var(--text-light);font-size:.9rem;margin-bottom:1.5rem}
+  .wa-fallback-btn{
+    display:inline-flex;align-items:center;gap:10px;padding:1rem 2rem;
+    background:#25D366;color:#fff;text-decoration:none;font-weight:700;
+    letter-spacing:1px;text-transform:uppercase;font-size:.9rem;
+    transition:all .3s;border-radius:8px;
+    box-shadow:0 0 15px rgba(37,211,102,.4);
+  }
+  .wa-fallback-btn:hover{background:#1eb356;box-shadow:0 0 30px rgba(37,211,102,.7);transform:scale(1.05)}
+
+  /* ---------- CONTACT ---------- */
+  .contact-actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-bottom:3rem}
+  .action-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;padding:2.5rem 1.5rem;background:rgba(255,255,255,.02);border:1px solid rgba(212,175,55,.2);text-decoration:none;transition:all .3s;text-align:center}
+  .action-btn i{font-size:2rem;color:var(--primary-gold);transition:transform .3s}
+  .action-btn span{color:#fff;font-size:.9rem;font-weight:600;letter-spacing:2px;text-transform:uppercase}
+  .action-btn:hover{background:rgba(212,175,55,.05);border-color:var(--primary-gold);transform:translateY(-5px)}
+  .action-btn:hover i{transform:scale(1.1)}
+  .contact-info{text-align:center;color:var(--text-muted);font-size:1rem;line-height:2.2}
+  .contact-info i{color:var(--primary-gold);margin-right:10px;width:20px}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:768px){
+    .navbar{padding:1rem}
+    .nav-links{gap:.8rem;width:100%;justify-content:center;margin-top:1rem}
+    .nav-links a{font-size:.75rem;letter-spacing:1px;padding:.4rem}
+    .hero{min-height:85vh}
+    .hero h1{letter-spacing:6px}
+    .section{padding:4rem 1rem}
+    .btn{padding:1rem 1.5rem;font-size:.85rem;gap:8px}
+    .stat-num{font-size:2.5rem}
+    .barber-card{padding:2rem 1.5rem}
+    .section-title-inner{font-size:1.5rem;letter-spacing:2px}
+    .gallery-grid-full{grid-template-columns:repeat(2,1fr)}
+    .photo-grid{grid-template-columns:1fr}
+    .form-row{flex-direction:column;gap:1rem}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAVBAR ============ -->
+<nav class="navbar">
+  <div class="nav-brand" onclick="showPage('home')"><i class="fas fa-cut"></i> NJF <span>BARBER</span></div>
+  <div class="nav-links">
+    <a onclick="showPage('home')">Home</a>
+    <a onclick="showPage('services')">Services</a>
+    <a onclick="showPage('gallery')">Gallery</a>
+    <a onclick="showPage('appointment')">Book</a>
+    <a onclick="showPage('contact')">Contact</a>
+  </div>
+</nav>
+
+<!-- ============ HOME PAGE ============ -->
+<div class="page active" id="page-home">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-icon"><i class="fas fa-cut"></i></div>
+      <h1>NJF <span>BARBER</span></h1>
+      <div class="hero-tag">Premium Grooming</div>
+      <div class="hero-buttons">
+        <button class="btn btn-solid" onclick="showPage('appointment')"><i class="fas fa-calendar-check"></i> Book Now</button>
+        <button class="btn" onclick="showPage('services')"><i class="fas fa-scissors"></i> Services</button>
+        <a class="btn btn-wa" href="https://wa.me/919971956800?text=Hi%20NJF%20Barber%2C%20I%20want%20to%20book%20an%20appointment" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-num">5+</div><div class="stat-label">Years Exp</div></div>
+    <div class="stat-item"><div class="stat-num">5K+</div><div class="stat-label">Happy Clients</div></div>
+    <div class="stat-item"><div class="stat-num">4.9</div><div class="stat-label">Google Rating</div></div>
+    <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">Satisfaction</div></div>
+  </div>
+
+  <!-- WHY US -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-sub">Why Choose Us</span>
+      <div class="section-title">The NJF Standard</div>
+      <div class="title-divider"></div>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card" onclick="showPage('services')">
+        <div class="feature-icon"><i class="fas fa-crown"></i></div>
+        <h3>Master Barbers</h3>
+        <p>Decades of combined experience delivering precision cuts and classic fades.</p>
+      </div>
+      <div class="feature-card" onclick="showPage('services')">
+        <div class="feature-icon"><i class="fas fa-gem"></i></div>
+        <h3>Premium Products</h3>
+        <p>We only use top-tier grooming products for a lasting, healthy finish.</p>
+      </div>
+      <div class="feature-card" onclick="showPage('appointment')">
+        <div class="feature-icon"><i class="fas fa-clock"></i></div>
+        <h3>Quick Booking</h3>
+        <p>Book your preferred slot in seconds via our seamless WhatsApp system.</p>
+      </div>
+      <div class="feature-card" onclick="showPage('contact')">
+        <div class="feature-icon"><i class="fas fa-map-marker-alt"></i></div>
+        <h3>Prime Location</h3>
+        <p>Conveniently located in Najafgarh, Delhi with easy access and parking.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="section" style="padding-top:0">
+    <div class="section-head">
+      <span class="section-sub">Our Work</span>
+      <div class="section-title">The Gallery</div>
+      <div class="title-divider"></div>
+    </div>
+    <div class="photo-grid">
+      <div class="photo-item" onclick="showPage('gallery')">
+        <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=600&q=80" alt="Shop Entrance">
+        <div class="photo-overlay"><div class="photo-caption">Shop Entrance</div></div>
+      </div>
+      <div class="photo-item" onclick="showPage('gallery')">
+        <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=600&q=80" alt="Classic Pompadour">
+        <div class="photo-overlay"><div class="photo-caption">Classic Pompadour</div></div>
+      </div>
+      <div class="photo-item" onclick="showPage('gallery')">
+        <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=600&q=80" alt="Modern Fade">
+        <div class="photo-overlay"><div class="photo-caption">Modern Fade</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section" style="padding-top:0">
+    <div class="section-head">
+      <span class="section-sub">Testimonials</span>
+      <div class="section-title">Client Reviews</div>
+      <div class="title-divider"></div>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Best barber in Najafgarh! The fade was perfect and the service felt premium. Highly recommend NJF."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">R</div>
+          <div><div class="testi-name">Rahul Sharma</div><div class="testi-role">Regular Client</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Booked via WhatsApp — super easy. Got a royal shave and facial, felt like a king. Blue & gold vibes!"</div>
+        <div class="testi-author">
+          <div class="testi-avatar">A</div>
+          <div><div class="testi-name">Amit Kumar</div><div class="testi-role">First-time Client</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Clean shop, skilled barbers, and great pricing. The beard trim was on point. Will definitely come back."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">S</div>
+          <div><div class="testi-name">Sandeep Yadav</div><div class="testi-role">Loyal Customer</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-strip">
+    <h2>Ready for a Sharp New Look?</h2>
+    <p>Book your appointment now — walk in a client, walk out a legend.</p>
+    <div class="cta-buttons">
+      <button class="btn btn-solid" onclick="showPage('appointment')"><i class="fas fa-calendar-check"></i> Book Appointment</button>
+      <a class="btn" href="tel:09971956800"><i class="fas fa-phone"></i> Call Now</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============ APPOINTMENT PAGE ============ -->
+<div class="page" id="page-appointment">
+  <div class="page-inner">
+    <div class="barber-card">
+      <button class="back-btn" onclick="showPage('home')"><i class="fas fa-arrow-left"></i> Back</button>
+      <div class="section-title-inner">Book <span>Appointment</span></div>
+
+      <form class="appointment-form" id="appointmentForm" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="custName">Full Name</label>
+            <input type="text" id="custName" placeholder="e.g. Rahul Sharma" required>
+          </div>
+          <div class="form-group">
+            <label for="custPhone">Phone Number</label>
+            <input type="tel" id="custPhone" placeholder="e.g. 9876543210" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="custService">Service</label>
+            <select id="custService" required>
+              <option value="" disabled selected>Select a service</option>
+              <option value="Haircut">Haircut</option>
+              <option value="Kids Haircut">Kids Haircut</option>
+              <option value="Beard Trim">Beard Trim</option>
+              <option value="Facial">Facial</option>
+              <option value="Hair Color">Hair Color</option>
+              <option value="Head Massage">Head Massage</option>
+              <option value="Royal Shave">Royal Shave</option>
+              <option value="Full Package">Full Package</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="custDate">Date</label>
+            <input type="date" id="custDate" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="custTime">Time</label>
+            <select id="custTime" required>
+              <option value="" disabled selected>Select time</option>
+              <option>09:00 AM</option><option>10:00 AM</option><option>11:00 AM</option>
+              <option>12:00 PM</option><option>01:00 PM</option><option>02:00 PM</option>
+              <option>03:00 PM</option><option>04:00 PM</option><option>05:00 PM</option>
+              <option>06:00 PM</option><option>07:00 PM</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="custNotes">Notes (Optional)</label>
+            <input type="text" id="custNotes" placeholder="Any special request?">
+          </div>
+        </div>
+        <button type="submit" class="btn-appointment">Confirm Booking</button>
+
+        <!-- SUCCESS MESSAGE -->
+        <div class="appointment-success" id="appointmentSuccess">
+          <h4>Details Ready!</h4>
+          <p>If WhatsApp didn't open automatically, use the button below:</p>
+          <a href="#" id="waFallbackLink" class="wa-fallback-btn" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Send on WhatsApp</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SERVICES PAGE ============ -->
+<div class="page" id="page-services">
+  <div class="page-inner">
+    <div class="barber-card">
+      <button class="back-btn" onclick="showPage('home')"><i class="fas fa-arrow-left"></i> Back</button>
+      <div class="section-title-inner">Our <span>Services</span></div>
+      <div class="services-grid">
+        <div class="service-item" onclick="bookService('Haircut')">
+          <i class="fas fa-cut"></i><span>Haircut</span>
+          <div class="tap-hint">Tap to Book</div>
+        </div>
+        <div class="service-item" onclick="bookService('Kids Haircut')">
+          <i class="fas fa-child"></i><span>Kids Haircut</span>
+          <div class="tap-hint">Tap to Book</div>
+        </div>
+        <div class="service-item" onclick="bookService('Beard Trim')">
+          <i class="fas fa-razor"></i><span>Beard Trim</span>
+          <div class="tap-hint">Tap to Book</div>
+        </div>
+        <div class="service-item" onclick="bookService('Facial')">
+          <i class="fas fa-spa"></i><span>Facial</span>
+          <div class="tap-hint">Tap to Book</div>
+        </div>
+        <div class="service-item" onclick="bookService('Hair Color')">
+          <i class="fas fa-paint-brush"></i><span>Hair Color</span>
+          <div class="tap-hint">Tap to Book</div>
+        </div>
+        <div class="service-item" onclick="bookService('Head Massage')">
+          <i class="fas fa-hand-sparkles"></i><span>Head Massage</span>
+          <div class="tap-hint">Tap to Book</div>
+        </div>
+        <div class="service-item" onclick="bookService('Royal Shave')">
+          <i class="fas fa-crown"></i><span>Royal Shave</span>
+          <div class="tap-hint">Tap to Book</div>
+        </div>
+        <div class="service-item" onclick="bookService('Full Package')">
+          <i class="fas fa-star"></i><span>Full Package</span>
+          <div class="tap-hint">Tap to Book</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ GALLERY PAGE ============ -->
+<div class="page" id="page-gallery">
+  <div class="page-inner">
+    <div class="barber-card">
+      <button class="back-btn" onclick="showPage('home')"><i class="fas fa-arrow-left"></i> Back</button>
+      <div class="section-title-inner">Our <span>Gallery</span></div>
+      <div class="gallery-grid-full">
+        <div class="gallery-item-full"><img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=600&h=600&fit=crop" alt="Shop Door"></div>
+        <div class="gallery-item-full"><img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=600&h=600&fit=crop" alt="Haircut 1"></div>
+        <div class="gallery-item-full"><img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=600&h=600&fit=crop" alt="Haircut 2"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CONTACT PAGE ============ -->
+<div class="page" id="page-contact">
+  <div class="page-inner">
+    <div class="barber-card">
+      <button class="back-btn" onclick="showPage('home')"><i class="fas fa-arrow-left"></i> Back</button>
+      <div class="section-title-inner">Get In <span>Touch</span></div>
+      
+      <div class="contact-actions">
+        <a class="action-btn" href="tel:09971956800">
+          <i class="fas fa-phone"></i>
+          <span>Call Now</span>
+        </a>
+        <a class="action-btn" href="https://wa.me/919971956800?text=Hi%20NJF%20Barber%2C%20I%20want%20to%20book%20an%20appointment" target="_blank" rel="noopener">
+          <i class="fab fa-whatsapp"></i>
+          <span>WhatsApp</span>
+        </a>
+        <a class="action-btn" href="https://www.google.com/maps/search/?api=1&query=2+Old+Kakrola+Rd+New+Dharampura+Extension+Masudabad+Najafgarh+Delhi+110043" target="_blank" rel="noopener">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>Location</span>
+        </a>
+      </div>
+
+      <div class="contact-info">
+        <div><i class="fas fa-mobile-alt"></i> <a href="tel:09971956800" style="color:var(--primary-gold);text-decoration:none">099719 56800</a></div>
+        <div><i class="fas fa-map-pin"></i> 2, Old Kakrola Rd, New Dharampura Extension,<br>Masudabad, Najafgarh, Delhi, 110043</div>
+        <div><i class="fas fa-clock"></i> Mon–Sat: 9:00 AM – 8:00 PM</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footer-brand">NJF <span>BARBER</span></div>
+  <div class="footer-tag">Premium Grooming · Delhi</div>
+  
+  <div class="footer-social">
+    <a href="https://wa.me/919971956800" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+    <a href="tel:09971956800"><i class="fas fa-phone"></i></a>
+    <a href="https://www.google.com/maps/search/?api=1&query=2+Old+Kakrola+Rd+New+Dharampura+Extension+Masudabad+Najafgarh+Delhi+110043" target="_blank" rel="noopener"><i class="fas fa-map-marker-alt"></i></a>
+    <!-- INSTAGRAM LINK ADDED HERE -->
+    <a href="https://www.instagram.com/barber__shop__njf/" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+  </div>
+  
+  <div class="footer-info">
+    <div><i class="fas fa-map-pin"></i> 2, Old Kakrola Rd, New Dharampura Extension, Masudabad, Najafgarh, Delhi, 110043</div>
+    <div><i class="fas fa-clock"></i> Mon–Sat: 9:00 AM – 8:00 PM</div>
+  </div>
+  
+  <div class="footer-copy">© 2025 NJF BARBER SHOP · ALL RIGHTS RESERVED</div>
+</footer>
+
+<script>
+  // ---------- PAGE SWITCHER ----------
+  function showPage(name){
+    document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+    var target = document.getElementById('page-' + name);
+    if(target){
+      target.classList.add('active');
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+  }
+
+  // ---------- AUTO-SELECT SERVICE & REDIRECT ----------
+  function bookService(serviceName) {
+    showPage('appointment');
+    setTimeout(function() {
+      var selectElem = document.getElementById('custService');
+      if (selectElem) {
+        selectElem.value = serviceName;
+        selectElem.style.boxShadow = '0 0 25px var(--primary-gold)';
+        selectElem.style.borderColor = 'var(--primary-gold-light)';
+        setTimeout(function(){
+          selectElem.style.boxShadow = '0 0 20px rgba(212,175,55,.2)';
+          selectElem.style.borderColor = 'rgba(212,175,55,.2)';
+        }, 1500);
+      }
+    }, 100);
+  }
+
+  // ---------- APPOINTMENT FORM (100% WORKING) ----------
+  document.addEventListener('DOMContentLoaded', function(){
+    var form = document.getElementById('appointmentForm');
+    var successBox = document.getElementById('appointmentSuccess');
+    var waFallback = document.getElementById('waFallbackLink');
+    var dateInput = document.getElementById('custDate');
+
+    if(dateInput){
+      dateInput.setAttribute('min', new Date().toISOString().split('T')[0]);
+    }
+
+    if(form){
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+
+        var name = document.getElementById('custName').value.trim();
+        var phone = document.getElementById('custPhone').value.trim();
+        var service = document.getElementById('custService').value;
+        var date = document.getElementById('custDate').value;
+        var time = document.getElementById('custTime').value;
+        var notes = document.getElementById('custNotes').value.trim();
+
+        if(!name){ alert('Please enter your name.'); return; }
+        if(!phone || phone.length < 10){ alert('Please enter a valid phone number.'); return; }
+        if(!service){ alert('Please select a service.'); return; }
+        if(!date){ alert('Please select a date.'); return; }
+        if(!time){ alert('Please select a time.'); return; }
+
+        var message =
+          '*NEW APPOINTMENT REQUEST*\n' +
+          '---------------------------\n' +
+          'Name: ' + name + '\n' +
+          'Phone: ' + phone + '\n' +
+          'Service: ' + service + '\n' +
+          'Date: ' + date + '\n' +
+          'Time: ' + time + '\n' +
+          'Notes: ' + (notes || '—') + '\n' +
+          '---------------------------\n' +
+          'Sent from NJF Barber website';
+
+        var waURL = 'https://wa.me/919971956800?text=' + encodeURIComponent(message);
+
+        waFallback.href = waURL;
+        successBox.style.display = 'block';
+        successBox.scrollIntoView({behavior:'smooth', block:'center'});
+
+        setTimeout(function() {
+            window.location.href = waURL;
+        }, 500); 
+      });
+    }
+  });
+</script>
+</body>
+</html>
